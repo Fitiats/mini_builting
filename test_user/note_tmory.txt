@@ -1,0 +1,9 @@
+EXIT STATUS
+
+succes : 0
+error : 0<n
+fatal signal : 128 + N (N is the signal number)
+command found but not executable : 126
+command not found : 127
+incorrect usage of a command : 2
+($?) Expands to the exit status of the most recently executed foreground pipeline. ==> echo $?
