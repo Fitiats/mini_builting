@@ -6,12 +6,11 @@
 /*   By: trahanta <trahanta@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:58:22 by trahanta          #+#    #+#             */
-/*   Updated: 2024/12/20 14:03:24 by trahanta         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:21:02 by trahanta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 // void	ms_rm_new_ligne(t_token *tkn)
 // {
@@ -45,21 +44,43 @@
 // 	return (count);
 // }
 
-int	ms_echo(t_token *tkn)
+int valid_option(char *s)
 {
-	t_token	*temp;
-	//t_token *temp_2;
-	//int		count_tkn;
-	//int i = 0;
+	int i;
 
-	// count_tkn = ms_count_token(temp);
-	temp = tkn;
-	temp = temp->next;
-	while (temp)
+	i = 0;
+	while(s[i])
 	{
-		printf("%s ", temp->word);
-		temp = temp->next;
+		if(s[i] == '-' && s[i + 1] == 'n')
+			return (1);
+		i++;
 	}
 	return (0);
 }
+int	ms_echo(t_token *tkn)
+{
+	t_token	*temp;
 
+	temp = tkn;
+	temp = temp->next;
+	// if (ft_strcmp(temp->word, "-n") == 0)
+	if (valid_option(temp->word) == 1)
+	{
+		temp = temp->next;
+		while (temp)
+		{
+			printf("%s", temp->word);
+			temp = temp->next;
+		}
+	}
+	else
+	{
+		while (temp)
+		{
+			printf("%s ", temp->word);
+			temp = temp->next;
+		}
+		printf("\n");
+	}
+	return (0);
+}
