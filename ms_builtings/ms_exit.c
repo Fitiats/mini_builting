@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_parsing.h                                       :+:      :+:    :+:   */
+/*   ms_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: trahanta <trahanta@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/10 13:24:45 by trahanta          #+#    #+#             */
-/*   Updated: 2024/12/10 13:56:47 by trahanta         ###   ########.fr       */
+/*   Created: 2024/12/27 10:58:03 by trahanta          #+#    #+#             */
+/*   Updated: 2024/12/27 11:19:29 by trahanta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../minishell.h"
 
-#ifndef MS_PARSING_H
-#define MS_PARSING_H
-
-
-#endif
+int ms_exit(t_token *tkn, t_parsing *pars, t_env *env)
+{
+    exit()
+}

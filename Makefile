@@ -6,7 +6,7 @@
 #    By: trahanta <trahanta@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/29 12:47:37 by tmory             #+#    #+#              #
-#    Updated: 2024/12/18 10:45:11 by trahanta         ###   ########.fr        #
+#    Updated: 2024/12/27 11:16:26 by trahanta         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,9 @@ CHECK_TOKEN = ms_check_token/ms_check_pipe.c \
 LEXING = ms_lexing/ms_split.c\
 #-------------------FOLDER:ms_builtings----------------------------------
 BUILTING = ms_builtings/ms_echo.c\
+			ms_builtings/ms_export.c\
 			ms_builtings/ms_function_built.c\
+			ms_builtings/ms_exit.c\
 #-------------------FOLDER: utilities---------------------------
 UTILITIES = utilities/ms_list_management.c \
 	utilities/ms_env_management/ms_envcpy.c \

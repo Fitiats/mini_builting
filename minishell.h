@@ -6,7 +6,7 @@
 /*   By: trahanta <trahanta@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 09:14:21 by tmory             #+#    #+#             */
-/*   Updated: 2024/12/20 10:11:31 by trahanta         ###   ########.fr       */
+/*   Updated: 2024/12/27 09:14:31 by trahanta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,6 @@ int ms_exec_ifpipe(t_env *env_lst, t_token *tkn, t_parsing *pars);
 //ms_builting
 int	ms_echo(t_token *tkn);
 t_token *ms_take_first_token(t_token *tkn, unsigned int rank);
+int ms_export_var(t_token *tkn, t_env *env);
 
 #endif

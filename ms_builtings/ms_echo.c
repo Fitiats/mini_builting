@@ -6,56 +6,27 @@
 /*   By: trahanta <trahanta@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:58:22 by trahanta          #+#    #+#             */
-/*   Updated: 2024/12/20 15:21:02 by trahanta         ###   ########.fr       */
+/*   Updated: 2024/12/23 14:47:44 by trahanta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// void	ms_rm_new_ligne(t_token *tkn)
-// {
-// 	t_token	*temp;
-// 	int		i;
-// 	int		count;
-
-// 	i = 0;
-// 	temp = tkn;
-// 	while (temp->word[i])
-// 	{
-// 		if (ft_strchr(temp->word, '\n'))
-// 		{
-// 			count = ft_strlen(temp->word);
-// 		}
-// 		i++;
-// 	}
-// }
-
-// int	ms_count_token(t_token *tkn)
-// {
-// 	int		count;
-// 	t_token	*temp;
-
-// 	temp = tkn;
-// 	while (temp)
-// 	{
-// 		count++;
-// 		temp = temp->next;
-// 	}
-// 	return (count);
-// }
-
-int valid_option(char *s)
+int	valid_option(char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(s[i])
+	if(s[i] == '-' && s[i + 1] == 'n')
 	{
-		if(s[i] == '-' && s[i + 1] == 'n')
-			return (1);
+		i += 2;
+		while(s[i] == 'n')
+		{
+			return (0);
 		i++;
+		}
 	}
-	return (0);
+	return (1);
 }
 int	ms_echo(t_token *tkn)
 {
@@ -64,12 +35,12 @@ int	ms_echo(t_token *tkn)
 	temp = tkn;
 	temp = temp->next;
 	// if (ft_strcmp(temp->word, "-n") == 0)
-	if (valid_option(temp->word) == 1)
+	if (valid_option(temp->word) == 0)
 	{
 		temp = temp->next;
 		while (temp)
 		{
-			printf("%s", temp->word);
+			printf("%s ", temp->word);
 			temp = temp->next;
 		}
 	}
