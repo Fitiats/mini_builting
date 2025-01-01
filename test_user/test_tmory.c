@@ -115,6 +115,7 @@ int	main(int ac, char **av, char **envp)
 		tokens = ms_split_token(cmd, env, ' ');
 		if ( tokens == NULL)
 			return (ms_free_env(env), 1);
+		print_split(tokens);
 		// if (ms_ispipe)
 		// 	ms_piping();
 		// else
