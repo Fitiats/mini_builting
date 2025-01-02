@@ -6,7 +6,7 @@
 /*   By: trahanta <trahanta@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:22:46 by trahanta          #+#    #+#             */
-/*   Updated: 2025/01/01 19:54:21 by trahanta         ###   ########.fr       */
+/*   Updated: 2025/01/02 22:01:45 by trahanta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,12 @@ void	print_env(t_env *env)
 	temp_env = env;
 	while (temp_env)
 	{
-		printf("export %s=%s\n", temp_env->var_name, temp_env->var_value);
+		if (temp_env->var_value && temp_env->var_value[0] != '\0')
+		{
+			printf("export %s=%s\n", temp_env->var_name, temp_env->var_value);
+		}
+		else
+			printf("export %s\n", temp_env->var_name);
 		temp_env = temp_env->next;
 	}
 }
@@ -175,8 +180,10 @@ char	*check_var_value(char *s)
 	{
 		i++;
 	}
-	j += i;
-	if (j == 0)
+	j = j + i;
+	if(s[i] == '\0' && s[i] != '=')
+		return (NULL);
+	if (j == '\0')
 		return (NULL);
 	value = ft_substr(s, j, ft_strlen(s));
 	if (!value)
@@ -197,23 +204,42 @@ int	ms_export_var(t_token *tkn, t_env *env)
 		print_env_shorted(env);
 	else
 	{
-		var_name = check_var_name(temp->word);
-		var_value = check_var_value(temp->word);
-		if (valid_export_name(var_name) == 0)
+		while (temp)
 		{
-			add_back(&env, var_name, var_value);
+			var_name = check_var_name(temp->word);
+
+			if (var_name == NULL)
+			{
+				
+				ft_putstr_fd("minishell: export: ", 2);
+				ft_putstr_fd(temp->word, 2);
+				ft_putstr_fd(": not a valid identifier\n", 2);
+				temp = temp->next;
+				break ;
+			}
+			var_value = check_var_value(temp->word);
+			if(var_value == NULL)
+			{
+				printf("%s\n", var_value);
+			}
+			if (valid_export_name(var_name) == 0)
+			{
+				add_back(&env, var_name, var_value);
+			//	print_split(temp);
+			}
+			else
+			{
+				ft_putstr_fd("minishell: export: ", 2);
+				ft_putstr_fd(temp->word, 2);
+				ft_putstr_fd(": not a valid  identifier\n", 2);
+			}
+			// print_env(env);
+			// if(var_name)
+			//     printf("%s\n", var_name);
+			// if(var_value)
+			//     printf("%s",var_value);
+			temp = temp->next;
 		}
-		else
-		{
-			ft_putstr_fd("minishell: export: ", 2);
-			ft_putstr_fd(temp->word, 2);
-			ft_putstr_fd(": not a valid  identifier\n", 2);
-		}
-		// print_env(env);
-		// if(var_name)
-		//     printf("%s\n", var_name);
-		// if(var_value)
-		//     printf("%s",var_value);
 	}
 	return (0);
 }
