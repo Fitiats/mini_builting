@@ -6,7 +6,7 @@
 /*   By: trahanta <trahanta@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:22:46 by trahanta          #+#    #+#             */
-/*   Updated: 2025/01/02 22:01:45 by trahanta         ###   ########.fr       */
+/*   Updated: 2025/01/02 22:09:15 by trahanta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,9 +180,9 @@ char	*check_var_value(char *s)
 	{
 		i++;
 	}
-	j = j + i;
-	if(s[i] == '\0' && s[i] != '=')
+	if (s[i] == '\0' && s[i] != '=')
 		return (NULL);
+	j = j + i;
 	if (j == '\0')
 		return (NULL);
 	value = ft_substr(s, j, ft_strlen(s));
@@ -210,7 +210,6 @@ int	ms_export_var(t_token *tkn, t_env *env)
 
 			if (var_name == NULL)
 			{
-				
 				ft_putstr_fd("minishell: export: ", 2);
 				ft_putstr_fd(temp->word, 2);
 				ft_putstr_fd(": not a valid identifier\n", 2);
@@ -218,14 +217,28 @@ int	ms_export_var(t_token *tkn, t_env *env)
 				break ;
 			}
 			var_value = check_var_value(temp->word);
-			if(var_value == NULL)
+			if (var_value == NULL)
 			{
-				printf("%s\n", var_value);
+				char *next_name_var;
+				if (temp->next != NULL)
+				{
+					next_name_var = check_var_name(temp->next->word);
+					if (next_name_var == NULL)
+					{
+						ft_putstr_fd("minishell: export: ", 2);
+						ft_putstr_fd(temp->word, 2);
+						ft_putstr_fd(": not a valid identifier\n", 2);
+						temp = temp->next;
+						break ;
+					}
+				}
+				else
+					add_back(&env, var_name, var_value);
 			}
 			if (valid_export_name(var_name) == 0)
 			{
 				add_back(&env, var_name, var_value);
-			//	print_split(temp);
+				//	print_split(temp);
 			}
 			else
 			{
