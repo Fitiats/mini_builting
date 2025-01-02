@@ -6,7 +6,7 @@
 /*   By: trahanta <trahanta@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:22:46 by trahanta          #+#    #+#             */
-/*   Updated: 2025/01/02 22:54:13 by trahanta         ###   ########.fr       */
+/*   Updated: 2025/01/02 23:24:09 by trahanta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,19 @@ void	print_env_shorted(t_env *env)
 	print_env(env);
 }
 
+t_env	*find_var(t_env *env, char *var_name)
+{
+	t_env	*temp_env;
+
+	temp_env = env;
+	while (temp_env)
+	{
+		if (ft_strcmp(temp_env->var_name, var_name) == 0)
+			return (temp_env);
+		temp_env = temp_env->next;
+	}
+	return (NULL);
+}
 static t_env	*creat_env_var(char *name, char *value)
 {
 	t_env	*new_var;
@@ -80,20 +93,30 @@ static void	add_back(t_env **head, char *name, char *value)
 {
 	t_env	*new_node;
 	t_env	*temp;
+	t_env	*exist_var;
 
 	new_node = creat_env_var(name, value);
 	if (new_node == NULL)
 		return ;
-	if (*head == NULL)
-		*head = new_node;
+	exist_var = find_var(*head, name);
+	if (exist_var != NULL)
+	{
+		free(exist_var->var_value);
+		exist_var->var_value = value;
+	}
 	else
 	{
-		temp = *head;
-		while (temp->next != NULL)
+		if (*head == NULL)
+			*head = new_node;
+		else
 		{
-			temp = temp->next;
+			temp = *head;
+			while (temp->next != NULL)
+			{
+				temp = temp->next;
+			}
+			temp->next = new_node;
 		}
-		temp->next = new_node;
 	}
 }
 int	valid_export_name(char *s)
@@ -186,7 +209,7 @@ int	ms_export_var(t_token *tkn, t_env *env)
 	t_token	*temp;
 	char	*var_name;
 	char	*var_value;
-				char *next_name_var;
+	char	*next_name_var;
 
 	// char **list_var;
 	temp = tkn;
@@ -201,7 +224,13 @@ int	ms_export_var(t_token *tkn, t_env *env)
 		while (temp)
 		{
 			var_name = check_var_name(temp->word);
-			if (var_name == NULL || (valid_export_name(var_name) != 0))
+			if (var_name == NULL)
+			{
+				print_export_error(temp->next->word);
+				temp = temp->next;
+				break ;
+			}
+			if ((valid_export_name(var_name) != 0))
 			{
 				print_export_error(temp->word);
 				temp = temp->next;
@@ -215,9 +244,7 @@ int	ms_export_var(t_token *tkn, t_env *env)
 					next_name_var = check_var_name(temp->next->word);
 					if (next_name_var == NULL)
 					{
-						ft_putstr_fd("minishell: export: ", 2);
-						ft_putstr_fd(temp->word, 2);
-						ft_putstr_fd(": not a valid identifier\n", 2);
+						print_export_error(temp->next->word);
 						temp = temp->next;
 						break ;
 					}
