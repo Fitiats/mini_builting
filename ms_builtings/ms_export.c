@@ -6,7 +6,7 @@
 /*   By: trahanta <trahanta@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:22:46 by trahanta          #+#    #+#             */
-/*   Updated: 2025/01/02 22:09:15 by trahanta         ###   ########.fr       */
+/*   Updated: 2025/01/02 22:54:13 by trahanta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,51 +31,36 @@ void	print_env(t_env *env)
 
 void	print_env_shorted(t_env *env)
 {
-	t_env	*temp_env;
 	t_env	*current;
-	t_env	*min_temp;
-	t_env	*sorted_list;
-	t_env	*sorted_tail;
+	t_env	*next;
+	int		swapped;
+	char	*temp_name;
+	char	*temp_value;
 
-	sorted_list = NULL;
-	sorted_tail = NULL;
-	temp_env = env;
-	while (temp_env)
+	if (env == NULL || env->next == NULL)
+		return ;
+	swapped = 1;
+	while (swapped)
 	{
-		min_temp = temp_env;
-		current = temp_env->next;
-		while (current)
+		swapped = 0;
+		current = env;
+		while (current != NULL && current->next != NULL)
 		{
-			if (strcmp(current->var_name, min_temp->var_name) < 0)
-				min_temp = current;
+			next = current->next;
+			if (strcmp(current->var_name, next->var_name) > 0)
+			{
+				temp_name = current->var_name;
+				temp_value = current->var_value;
+				current->var_name = next->var_name;
+				current->var_value = next->var_value;
+				next->var_name = temp_name;
+				next->var_value = temp_value;
+				swapped = 1;
+			}
 			current = current->next;
 		}
-		if (min_temp == temp_env)
-		{
-			temp_env = temp_env->next;
-		}
-		else
-		{
-			current = temp_env;
-			while (current->next != min_temp)
-			{
-				current = current->next;
-			}
-			current->next = min_temp->next;
-		}
-		if (!sorted_list)
-		{
-			sorted_list = min_temp;
-			sorted_tail = min_temp;
-		}
-		else
-		{
-			sorted_tail->next = min_temp;
-			sorted_tail = min_temp;
-		}
-		sorted_tail->next = NULL;
 	}
-	print_env(sorted_list);
+	print_env(env);
 }
 
 static t_env	*creat_env_var(char *name, char *value)
@@ -190,36 +175,41 @@ char	*check_var_value(char *s)
 		return (NULL);
 	return (value);
 }
+static void	print_export_error(char *word)
+{
+	ft_putstr_fd("minishell: export: ", 2);
+	ft_putstr_fd(word, 2);
+	ft_putstr_fd(": not a valid identifier\n", 2);
+}
 int	ms_export_var(t_token *tkn, t_env *env)
 {
-	t_token *temp;
-	char *var_name;
-	char *var_value;
-	// char **list_var;
+	t_token	*temp;
+	char	*var_name;
+	char	*var_value;
+				char *next_name_var;
 
+	// char **list_var;
 	temp = tkn;
 	temp = temp->next;
-
 	if (temp == NULL)
+	{
 		print_env_shorted(env);
+		// print_env(env);
+	}
 	else
 	{
 		while (temp)
 		{
 			var_name = check_var_name(temp->word);
-
-			if (var_name == NULL)
+			if (var_name == NULL || (valid_export_name(var_name) != 0))
 			{
-				ft_putstr_fd("minishell: export: ", 2);
-				ft_putstr_fd(temp->word, 2);
-				ft_putstr_fd(": not a valid identifier\n", 2);
+				print_export_error(temp->word);
 				temp = temp->next;
 				break ;
 			}
 			var_value = check_var_value(temp->word);
 			if (var_value == NULL)
 			{
-				char *next_name_var;
 				if (temp->next != NULL)
 				{
 					next_name_var = check_var_name(temp->next->word);
@@ -235,17 +225,19 @@ int	ms_export_var(t_token *tkn, t_env *env)
 				else
 					add_back(&env, var_name, var_value);
 			}
-			if (valid_export_name(var_name) == 0)
-			{
-				add_back(&env, var_name, var_value);
-				//	print_split(temp);
-			}
 			else
-			{
-				ft_putstr_fd("minishell: export: ", 2);
-				ft_putstr_fd(temp->word, 2);
-				ft_putstr_fd(": not a valid  identifier\n", 2);
-			}
+				add_back(&env, var_name, var_value);
+			// if (valid_export_name(var_name) == 0)
+			// {
+			// 	add_back(&env, var_name, var_value);
+			// 	//	print_split(temp);
+			// }
+			// else
+			// {
+			// 	ft_putstr_fd("minishell: export: ", 2);
+			// 	ft_putstr_fd(temp->word, 2);
+			// 	ft_putstr_fd(": not a valid  identifier\n", 2);
+			// }
 			// print_env(env);
 			// if(var_name)
 			//     printf("%s\n", var_name);
