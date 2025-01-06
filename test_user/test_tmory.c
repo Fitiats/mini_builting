@@ -149,8 +149,8 @@ int	main(int ac, char **av, char **envp)
 				ms_echo(tokens);
 			else if(ft_strcmp(pars.cmd, "/export") == 0)
 				ms_export_var(tokens, env);
-			// else if(ft_strcmp(pars.cmd, "/pwd") == 0)
-			// 	ms_pwd();
+			else if(ft_strcmp(pars.cmd, "/unset") == 0)
+				ms_unset(env, tokens);
 			// else if(ft_strcmp(pars.cmd, "/exit") == 0)
 			// 	ms_exit();
 			// else if(ft_strcmp(pars.cmd, "/export") == 0)

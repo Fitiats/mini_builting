@@ -6,7 +6,7 @@
 /*   By: trahanta <trahanta@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 09:14:21 by tmory             #+#    #+#             */
-/*   Updated: 2024/12/27 09:14:31 by trahanta         ###   ########.fr       */
+/*   Updated: 2025/01/06 11:11:04 by trahanta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,13 @@ typedef struct 	s_env
 	struct 	s_env *next;
 }	t_env;
 
+typedef struct s_list_swap
+{
+	char *current;
+	char *next;
+	char *temp_name;
+	char *temp_value;
+}t_swap;
 
 //ms_check_token
 int	ms_is_relationalop(char c); // search < or >
@@ -153,9 +160,18 @@ int ms_execution(t_env *env_lst, t_parsing *pars);
 int ms_exec_withredir(t_parsing *pars, char **path, char *path_string, char **envp);
 int ms_exec_ifpipe(t_env *env_lst, t_token *tkn, t_parsing *pars);
 
+
 //ms_builting
 int	ms_echo(t_token *tkn);
 t_token *ms_take_first_token(t_token *tkn, unsigned int rank);
 int ms_export_var(t_token *tkn, t_env *env);
+int	ms_unset(t_env *env, t_token *tkn);
+
+//ms_builting utilities
+char	*check_var_name(char *s);
+void	print_env(t_env *env);
+t_env	*find_var(t_env *env, char *var_name);
+char	*ft_strndup(char *s, int n);
+
 
 #endif
