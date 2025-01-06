@@ -6,7 +6,7 @@
 /*   By: trahanta <trahanta@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:22:46 by trahanta          #+#    #+#             */
-/*   Updated: 2025/01/07 15:46:11 by trahanta         ###   ########.fr       */
+/*   Updated: 2025/01/06 23:29:40 by trahanta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,7 @@ int	ms_export_var(t_token *tkn, t_env *env)
 	temp = tkn;
 	temp = temp->next;
 	
-	if (temp == NULL || (schr_var(env, temp->word)))
+	if (temp == NULL || (temp->word[0] == '$' && schr_var(env, temp->word + 1) == 1))
 	{
 		print_env_shorted(env);
 		return (0);
