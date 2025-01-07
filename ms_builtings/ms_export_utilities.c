@@ -6,7 +6,7 @@
 /*   By: trahanta <trahanta@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:58:07 by trahanta          #+#    #+#             */
-/*   Updated: 2025/01/07 15:39:34 by trahanta         ###   ########.fr       */
+/*   Updated: 2025/01/08 00:30:23 by trahanta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,17 @@ void	print_env(t_env *env)
 	temp_env = env;
 	while (temp_env)
 	{
-		if (temp_env->var_value && temp_env->var_value[0] != '\0')
+		if (temp_env)
 		{
-			printf("export %s=%s\n", temp_env->var_name, temp_env->var_value);
+			if (temp_env->var_value && temp_env->var_value[0] != '\0')
+			{
+				printf("export %s=%s\n", temp_env->var_name,
+					temp_env->var_value);
+			}
+			else
+				printf("export %s\n", temp_env->var_name);
+			temp_env = temp_env->next;
 		}
-		else
-			printf("export %s\n", temp_env->var_name);
-		temp_env = temp_env->next;
 	}
 }
 t_env	*find_var(t_env *env, char *var_name)
@@ -41,7 +45,6 @@ t_env	*find_var(t_env *env, char *var_name)
 	}
 	return (NULL);
 }
-
 
 char	*ft_strndup(char *s, int n)
 {

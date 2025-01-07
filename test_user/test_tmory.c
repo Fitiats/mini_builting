@@ -150,7 +150,7 @@ int	main(int ac, char **av, char **envp)
 			else if(ft_strcmp(pars.cmd, "/export") == 0)
 				ms_export_var(tokens, env);
 			else if(ft_strcmp(pars.cmd, "/unset") == 0)
-				ms_unset(env, tokens);
+				ms_unset(&env, tokens);
 			else if(ft_strcmp(pars.cmd, "/env") == 0)
 				ms_env(env);
 			// else if(ft_strcmp(pars.cmd, "/export") == 0)
