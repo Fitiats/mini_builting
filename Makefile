@@ -6,7 +6,7 @@
 #    By: trahanta <trahanta@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/29 12:47:37 by tmory             #+#    #+#              #
-#    Updated: 2025/01/06 10:59:28 by trahanta         ###   ########.fr        #
+#    Updated: 2025/01/07 15:19:31 by trahanta         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ BUILTING = ms_builtings/ms_echo.c\
 			ms_builtings/ms_exit.c\
 			ms_builtings/ms_unset.c\
 			ms_builtings/ms_export_utilities.c\
+			ms_builtings/ms_env.c\
 #-------------------FOLDER: utilities---------------------------
 UTILITIES = utilities/ms_list_management.c \
 	utilities/ms_env_management/ms_envcpy.c \

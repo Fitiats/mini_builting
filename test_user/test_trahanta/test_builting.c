@@ -6,26 +6,6 @@
 
 
 
-void ms_echo(char **av)
-{
-    int i;
-    int j;
-    j = 2;
-    char c;
-    while(av[j] != NULL)
-	{
-		i = 0;
-		while(av[j][i] != '\0')
-		{
-			c = av[j][i];
-			printf("%c", c);
-			i++;
-		}
-		printf(" ");
-		j++;
-	}
-}
-
 int	main(void)
 {
 	char *prompt;

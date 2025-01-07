@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_list_management.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmory <tmory@student.42antananarivo.mg>    +#+  +:+       +#+        */
+/*   By: trahanta <trahanta@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 15:18:25 by tmory             #+#    #+#             */
-/*   Updated: 2024/12/16 06:54:24 by tmory            ###   ########.fr       */
+/*   Updated: 2025/01/07 11:05:26 by trahanta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void ms_free_env(t_env *env)
 	{
 		temp = env;
 		free(env->var_name);
-		// free(env->var_value);
+		free(env->var_value);
 		env = env->next;
 		free(temp);
 	}

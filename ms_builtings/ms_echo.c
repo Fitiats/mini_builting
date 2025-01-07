@@ -6,7 +6,7 @@
 /*   By: trahanta <trahanta@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:58:22 by trahanta          #+#    #+#             */
-/*   Updated: 2025/01/06 09:49:40 by trahanta         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:46:26 by trahanta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,18 @@ int	valid_option(char *s)
 	}
 	return (1);
 }
-static void print_token(t_token *tkn)
+static void	print_token(t_token *tkn)
 {
-	t_token *temp;
-	
+	t_token	*temp;
+
 	temp = tkn;
 	while (temp)
-		{
-			printf("%s", temp->word);
-			if (temp->next)
-				printf(" ");
-			temp = temp->next;
-		}
+	{
+		printf("%s", temp->word);
+		if (temp->next)
+			printf(" ");
+		temp = temp->next;
+	}
 }
 int	ms_echo(t_token *tkn)
 {
@@ -48,7 +48,9 @@ int	ms_echo(t_token *tkn)
 
 	temp = tkn;
 	temp = temp->next;
-	if (valid_option(temp->word) == 0)
+	if(temp == NULL)
+			printf("\n");
+	else if (temp && valid_option(temp->word) == 0)
 	{
 		temp = temp->next;
 		print_token(temp);

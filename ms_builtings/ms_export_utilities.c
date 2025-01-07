@@ -6,7 +6,7 @@
 /*   By: trahanta <trahanta@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:58:07 by trahanta          #+#    #+#             */
-/*   Updated: 2025/01/06 15:58:05 by trahanta         ###   ########.fr       */
+/*   Updated: 2025/01/07 15:39:34 by trahanta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_env	*find_var(t_env *env, char *var_name)
 	}
 	return (NULL);
 }
+
 
 char	*ft_strndup(char *s, int n)
 {

@@ -115,7 +115,7 @@ int	main(int ac, char **av, char **envp)
 		tokens = ms_split_token(cmd, env, ' ');
 		if ( tokens == NULL)
 			return (ms_free_env(env), 1);
-		print_split(tokens);
+		// print_split(tokens);
 		// if (ms_ispipe)
 		// 	ms_piping();
 		// else
@@ -151,8 +151,8 @@ int	main(int ac, char **av, char **envp)
 				ms_export_var(tokens, env);
 			else if(ft_strcmp(pars.cmd, "/unset") == 0)
 				ms_unset(env, tokens);
-			// else if(ft_strcmp(pars.cmd, "/exit") == 0)
-			// 	ms_exit();
+			else if(ft_strcmp(pars.cmd, "/env") == 0)
+				ms_env(env);
 			// else if(ft_strcmp(pars.cmd, "/export") == 0)
 			// 	ms_export_var(tokens, env);
 			else

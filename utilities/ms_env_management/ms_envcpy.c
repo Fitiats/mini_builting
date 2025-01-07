@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_envcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmory <tmory@student.42antananarivo.mg>    +#+  +:+       +#+        */
+/*   By: trahanta <trahanta@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:11:32 by tmory             #+#    #+#             */
-/*   Updated: 2024/11/27 14:19:35 by tmory            ###   ########.fr       */
+/*   Updated: 2025/01/07 11:03:40 by trahanta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ unsigned int	ms_envcpy(t_env **env, char **src)
 				- src[i]);
 		if (!(temp->var_name))
 			return (ms_free_env(*env), 1);
-		temp->var_value = getenv(temp->var_name);
+		temp->var_value = ft_strdup(getenv(temp->var_name));
 		if (!(temp->var_value))
 			return (ms_free_env(*env), 1);
 		ms_envadd_back(env, temp);
